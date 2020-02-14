@@ -15,15 +15,21 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 // store API query url
 var url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
 
-// grab data with d3 & create geoJSON layer adding popups to each marker
-// & send layer to a map funtion 
-d3.json(url, function(data) {
-    console.log(data.features);
-    L.geoJson(data, {
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(`<h4> ${feature.properties.place} </h4> <hr> <p> ${Date(feature.properties.time)} </p>`);
-        }
-    }).addTo(myMap);
-});
+// create function for markers and popup
+function createMarkers(feature) {
+    L.circle([feature.geometry.coordinates[1],feature.geometry.coordinates[0]], {
+        color: "red",
+        fillColor: "orange",
+        fillOpacity: 0.75,
+        radius: feature.properties.mag*20000})
+        .bindPopup(`<h4> ${feature.properties.place} </h4> <hr> <p> ${Date(feature.properties.time)} </p>`)
+        .addTo(myMap);
+}
 
+// grab data with d3 & create geoJSON layer using marker function
+d3.json(url, function(data) {
+    L.geoJson(data, {
+        pointToLayer: createMarkers
+    });
+});
 

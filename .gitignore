@@ -1,23 +1,25 @@
-# Compiled class file
-*.class
+static/js/config.js
 
-# Log file
-*.log
+# # Compiled class file
+# *.class
 
-# BlueJ files
-*.ctxt
+# # Log file
+# *.log
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# # BlueJ files
+# *.ctxt
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
+# # Mobile Tools for Java (J2ME)
+# .mtj.tmp/
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+# # Package Files #
+# *.jar
+# *.war
+# *.nar
+# *.ear
+# *.zip
+# *.tar.gz
+# *.rar
+
+# # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# hs_err_pid*

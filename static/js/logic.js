@@ -4,13 +4,6 @@ var myMap = L.map('map', {
     zoom: 5
 });
 
-// var legend = L.control({postion: 'bottomright'});
-// legend.onAdd = function() {
-//     var div = L.DomUtil.create('div', 'info legend');
-//     var limits = geojson.options.limits;
-//     var colors = geojson.options.colors;
-//     var labels = [];
-// }
 
 // add tile layer to the map
 // add legend here perhaps (make last!)
@@ -20,6 +13,25 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     id: "mapbox.streets",
     accessToken: API_KEY
 }).addTo(myMap);
+
+var legend = L.control({postion: 'bottomright'});
+legend.onAdd = function() {
+    var div = L.DomUtil.create('div', 'info legend');
+    var magLabels = ["0-1","1-2","2-3","3-4","4-5","5+"];
+    var labels = [];
+    var grades = [0,1,2,3,4,5];
+    var colors = ["Lime", "GreenYellow", "Yellow", "Orange", "OrangeRed", "Red"];
+    var legendInfo = '<div class="labels"></div>'; 
+    div.innerHTML = legendInfo;
+    colors.forEach(function(color, index) {
+        labels.push('<li style="background-color: ' + color + '">' + magLabels[index] + '</li>');
+    });
+    div.innerHTML += '<ul>' + labels.join('') + '</ul>';
+    return div;
+};
+
+legend.addTo(myMap);
+
 
 // store API query url
 var url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
@@ -71,4 +83,5 @@ d3.json(url, function(data) {
         pointToLayer: createMarkers
     });
 });
+
 

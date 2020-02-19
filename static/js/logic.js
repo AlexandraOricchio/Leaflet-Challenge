@@ -4,22 +4,12 @@ var myMap = L.map('map', {
     zoom: 5
 });
 
-
-// add tile layer to the map
-// add legend here perhaps (make last!)
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 18,
-    id: "mapbox.streets",
-    accessToken: API_KEY
-}).addTo(myMap);
-
-var legend = L.control({postion: 'bottomright'});
+// create legend & add to map
+var legend = L.control({position: 'bottomright'});
 legend.onAdd = function() {
     var div = L.DomUtil.create('div', 'info legend');
     var magLabels = ["0-1","1-2","2-3","3-4","4-5","5+"];
     var labels = [];
-    var grades = [0,1,2,3,4,5];
     var colors = ["Lime", "GreenYellow", "Yellow", "Orange", "OrangeRed", "Red"];
     var legendInfo = '<div class="labels"></div>'; 
     div.innerHTML = legendInfo;
@@ -31,6 +21,14 @@ legend.onAdd = function() {
 };
 
 legend.addTo(myMap);
+
+// add tile layer to the map
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: "mapbox.streets",
+    accessToken: API_KEY
+}).addTo(myMap);
 
 
 // store API query url
@@ -66,7 +64,7 @@ function colorScale(feature) {
     return color;
 }
 
-// create function for markers and popup
+// create function for markers & popups
 function createMarkers(feature) {
     L.circle([feature.geometry.coordinates[1],feature.geometry.coordinates[0]], {
         color: "White",
